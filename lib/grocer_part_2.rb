@@ -1,15 +1,31 @@
 require_relative './part_1_solution.rb'
+require 'pry' 
+
 
 def apply_coupons(cart, coupons)
-  # Consult README for inputs and outputs
-  #
-  # REMEMBER: This method **should** update cart
+  cart.each do | item |
+    coupons.each do | it_coupon |
+      if item[:item] == it_coupon[:item]
+        if it_coupon[:num] <= item[:count]
+          couponed_item = {:item => "#{item[:item]} W/COUPON", :price => (it_coupon[:cost] / it_coupon[:num]), 
+          :clearance => item[:clearance],
+          :count => it_coupon[:num]}
+          
+          cart << couponed_item
+          item[:count] -= it_coupon[:num]
+        end
+      end
+    end
+  end
+  cart
+  #binding.pry 
 end
 
+
+
+
 def apply_clearance(cart)
-  # Consult README for inputs and outputs
-  #
-  # REMEMBER: This method **should** update cart
+  
 end
 
 def checkout(cart, coupons)
@@ -23,3 +39,5 @@ def checkout(cart, coupons)
   # BEFORE it begins the work of calculating the total (or else you might have
   # some irritated customers
 end
+
+
